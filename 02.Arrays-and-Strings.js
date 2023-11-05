@@ -170,4 +170,125 @@ Print them joined by comma and space.
 function pascalCase(text) {
     console.log(text.split(/(?=[A-Z])/).join(", "));
 }
-pascalCase('SplitMeIfYouCanHaHaYouCantOrYouCan');
+// pascalCase('SplitMeIfYouCanHaHaYouCantOrYouCan');
+
+
+// More Exercises
+/*
+1. Login
+
+You will be given a string representing a username. The correct password will be that username reversed. Until you receive the correct password print on the console: "Incorrect password. Try again.". When you receive the correct password print: "User {username} logged in."
+
+However, on the fourth try if the password is still not correct print: "User {username} blocked!" and end the program.
+
+The input comes as an array of strings - the first string represents username and each subsequent string is a password.
+*/
+
+function login(array) {
+
+    const username = array[0];
+    const password = username.split('').reverse().join('');
+
+    for (let index = 1; index < array.length; index++) {
+
+        if (array[index] !== password) {
+
+            console.log("Incorrect password. Try again.");
+
+            if (index === 3) {
+
+                console.log(`User ${username} blocked!`);
+                break;
+            }
+
+        } else {
+
+            console.log(`User ${username} logged in.`);
+            break;
+        }
+    }
+}
+// login(['sunny', 'rainy', 'cloudy', 'sunny', 'notsunny']);
+
+/*
+2. * Bitcoin "Mining"
+
+Write a JavaScript program that calculates the total amount of bitcoins you purchased with the gold you mined during your shift at the mine. Your shift consists of a certain number of days where you mine an amount of gold in grams. Your program will receive an array with the amount of gold you mined each day, where the first day of your shift is the first index of the array. Also, someone was stealing every third day from the start of your shift 30% from the mined gold for this day. You need to check, which day you have enough money to buy your first bitcoin. For the different exchanges use these prices:
+
+1 Bitcoin -> 11949.16 lv.
+
+1 g of gold -> 67.51 lv.
+
+Input
+
+You will receive an array of numbers, representing your shift at the mine.
+
+Output
+
+Print on the console these lines in the following formats:
+
+· First-line prints the total amount of bought bitcoins:
+
+`Bought bitcoins: {count}`
+
+· Second-line prints which day you bought your first bitcoin:
+
+`Day of the first purchased bitcoin: {day}`
+
+In case you did not purchase any bitcoins, do not print the second line.
+
+· Third-line prints the amount of money that’s left after the bitcoin purchases rounded by the second digit after the decimal point:
+
+`Left money: {money} lv.`
+
+Constraints
+
+· The input array may contain up to 1,000 elements
+
+· The numbers in the array are in the range [0.01..5,000.00] inclusive
+
+· Allowed time/memory: 100ms/16MB
+*/
+
+function buyFirstBitcoin(shifts) {
+
+    const oneBitcoin = 11949.16;
+    const oneGramOfGold = 67.51;
+    let totalAmountOfMoney = 0;
+    let daysCounter = 0;
+
+    for (let i = 0; i < shifts.length; i++) {
+
+        const goldPerShift = shifts[i];
+        let moneyPerShift = oneGramOfGold * goldPerShift;
+
+        if ((i + 1) % 3 === 0) {
+            moneyPerShift *= 0.7;
+        }
+
+        totalAmountOfMoney += moneyPerShift;
+
+        if (new Number(totalAmountOfMoney.toFixed(2)) >= oneBitcoin
+            && daysCounter === 0) {
+            daysCounter = i + 1;
+        }
+    }
+
+    const amaountOfBitcoins = totalAmountOfMoney / oneBitcoin;
+    const boughtBitcoins = Math.trunc(amaountOfBitcoins);
+    const moneyLeft = totalAmountOfMoney - (boughtBitcoins * oneBitcoin);
+
+    console.log(`Bought bitcoins: ${boughtBitcoins}`);
+
+    if (daysCounter > 0) {
+        console.log(`Day of the first purchased bitcoin: ${daysCounter}`);
+    }
+
+    console.log(`Left money: ${moneyLeft.toFixed(2)} lv.`);
+}
+buyFirstBitcoin([100, 200, 300]);
+/*
+Bought bitcoins: 2 
+Day of the first purchased bitcoin: 2
+Left money: 10531.78 lv.
+*/
