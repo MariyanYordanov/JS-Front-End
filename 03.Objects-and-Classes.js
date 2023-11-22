@@ -190,4 +190,27 @@ function getAddresses(input) {
     }
 }
 
-getAddresses(['Bob:Huxley Rd', 'John:Milwaukee Crossing', 'Peter:Fordem Ave', 'Bob:Redwing Ave', 'George:Mesta Crossing', 'Ted:Gateway Way', 'Bill:Gateway Way', 'John:Grover Rd', 'Peter:Huxley Rd', 'Jeff:Gateway Way', 'Jeff:Huxley Rd']);
+//getAddresses(['Bob:Huxley Rd', 'John:Milwaukee Crossing', 'Peter:Fordem Ave', 'Bob:Redwing Ave', 'George:Mesta Crossing', 'Ted:Gateway Way', 'Bill:Gateway Way', 'John:Grover Rd', 'Peter:Huxley Rd', 'Jeff:Gateway Way', 'Jeff:Huxley Rd']);
+
+// deep copy example
+let personAndFriends = {
+    name: "Ana",
+    age: 23,
+    friends: [
+        {
+            name: "Bob",
+            age: 25,
+        },
+        {
+            name: "Mary",
+            age: 23
+        }
+    ]
+};
+
+let copyPersonAndFriends = JSON.parse(JSON.stringify(personAndFriends));
+
+copyPersonAndFriends.friends[0].name = "Boby";
+
+console.log(personAndFriends);
+console.log(copyPersonAndFriends);
