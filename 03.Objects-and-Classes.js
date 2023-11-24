@@ -208,9 +208,279 @@ let personAndFriends = {
     ]
 };
 
-let copyPersonAndFriends = JSON.parse(JSON.stringify(personAndFriends));
+// let copyPersonAndFriends = JSON.parse(JSON.stringify(personAndFriends));
 
-copyPersonAndFriends.friends[0].name = "Boby";
+// copyPersonAndFriends.friends[0].name = "Boby";
 
-console.log(personAndFriends);
-console.log(copyPersonAndFriends);
+// console.log(personAndFriends);
+// console.log(copyPersonAndFriends);
+
+
+/*
+8. Cats
+
+Write a function that receives array of strings in the following format '{cat name} {age}'.
+
+Create a Cat class that receives in the constructor the name and the age parsed from the input.
+
+It should also have a method named "meow" that will print "{cat name}, age {age} says Meow" on the console.
+
+For each of the strings provided, you must create a cat object and invoke the .meow () method.
+*/
+
+function cats(arr) {
+
+    let cats = [];
+
+    class Cat {
+        constructor(catName, catAge) {
+            this.catName = catName;
+            this.catAge = catAge;
+        }
+
+        meow() {
+            console.log(`${this.catName}, age ${this.catAge} says Meow`);
+        }
+    }
+
+    for (const element of arr) {
+        let [cat] = element.split(", ");
+        let [catName, catAge] = cat.split(" ");
+        let newCat = new Cat(catName, catAge);
+        newCat.meow();
+        cats.push();
+    }
+}
+
+//cats(['Candy 1', 'Poppy 3', 'Nyx 2']);
+
+/*
+9. Songs
+
+Define a class Song, which holds the following information about songs: typeList, name, and time.
+
+You will receive the input as an array.
+
+The first element n will be the number of songs. Next n elements will be the songs data in the following format: "{typeList}_{name}_{time}", and the last element will be typeList / "all".
+
+Print only the names of the songs, which have the same typeList (obtained as the last parameter). If the value of the last element is "all", print the names of all the songs.
+*/
+
+function playList(array) {
+
+    let playList = [];
+
+    class Song {
+        constructor(typeList, name, time) {
+            this.typeList = typeList;
+            this.name = name;
+            this.time = time;
+        }
+    }
+
+    const songsNumber = array[0];
+    const command = array[array.length - 1];
+
+    for (let i = 1; i <= array.length - 2; i++) {
+        const [typeList, name, time] = array[i].split("_");
+        let newSong = new Song(typeList, name, time);
+        playList.push(newSong);
+    }
+
+    if (command === "all") {
+        playList.forEach((song) => console.log(song.name));
+    } else {
+        let filtredSongs = playList.filter((song) => song.typeList === command);
+        filtredSongs.forEach((song) => console.log(song.name));
+    }
+}
+
+//playList([4, 'favourite_DownTown_3:14', 'listenLater_Andalouse_3:24', 'favourite_In To The Night_3:58', 'favourite_Live It Up_3:48', 'listenLater']);
+//playList([3, 'favourite_DownTown_3:14', 'favourite_Kiss_4:16', 'favourite_Smooth Criminal_4:01', 'favourite']);
+//playList([2, 'like_Replay_3:15', 'ban_Photoshop_3:48', 'all']);
+
+
+/*
+11. Employees
+
+You're tasked to create a list of employees and their personal numbers.
+
+You will receive an array of strings. Each string is an employee name and to assign them a personal number you have to find the length of the name (whitespace included).
+
+Try to use an object.
+
+At the end print all the list employees in the following format:
+
+"Name: {employeeName} -- Personal Number: {personalNum}"
+*/
+
+function employee(array) {
+
+    let emloyeeInfo = [];
+
+    for (let i = 0; i < array.length; i++) {
+        let employee = {
+            name: array[i],
+            number: array[i].length,
+        };
+
+        emloyeeInfo.push(employee);
+    }
+
+    for (const employee of emloyeeInfo) {
+        console.log(`Name: ${employee.name} -- Personal Number: ${employee.number}`);
+    }
+}
+
+//employee(['Silas Butler', 'Adnaan Buckley', 'Juan Peterson', 'Brendan Villarreal']);
+
+/*
+12. Towns
+
+You’re tasked to create and print objects from a text table.
+
+You will receive the input as an array of strings, where each string represents a table row, with values on the row separated by pipes " | " and spaces.
+
+The table will consist of exactly 3 columns "Town", "Latitude" and "Longitude". The latitude and longitude columns will always contain valid numbers. Check the examples to get a better understanding of your task.
+
+The output should be objects. Latitude and longitude must be parsed to numbers and formatted to the second decimal point!
+*/
+
+function towns(table) {
+    for (const element of table) {
+        const [townName, townLatitude, townLongitude] = element.split(" | ");
+        let town = {
+            townName,
+            townLatitude: Number(townLatitude).toFixed(2),
+            townLongitude: Number(townLongitude).toFixed(2)
+        };
+
+        console.log(town);
+    }
+}
+
+//towns(['Sofia | 42.696552 | 23.32601', 'Beijing | 39.913818 | 116.363625']);
+
+/*
+13. Store Provision
+
+You will receive two arrays. The first array represents the current stock of the local store. The second array will contain products that the store has ordered for delivery.
+
+The following information applies to both arrays:
+
+Every even index will hold the name of the product and every odd index will hold the quantity of that product. The second array could contain products that are already in the local store. If that happens increase the quantity for the given product. You should store them into an object, and print them in the following format: (product -> quantity)
+
+All of the arrays’ values will be strings.
+*/
+
+function store(currrentStock, productsToOrdered) {
+
+    let products = {};
+
+    let mergedArray = currrentStock.concat(productsToOrdered);
+
+    for (let i = 0; i < mergedArray.length; i += 2) {
+
+        let productName = mergedArray[i];
+        let productQuantity = Number(mergedArray[i + 1]);
+
+        if (!products.hasOwnProperty(productName)) {
+            products[productName] = productQuantity;
+        } else {
+            products[productName] += productQuantity;
+        }
+    }
+
+    for (const product in products) {
+        console.log(`${product} -> ${products[product]}`);
+    }
+}
+
+//store(['Chips', '5', 'CocaCola', '9', 'Bananas', '14', 'Pasta', '4', 'Beer', '2'], ['Flour', '44', 'Oil', '12', 'Pasta', '7', 'Tomatoes', '70', 'Bananas', '30']);
+
+function moviesInfo(array) {
+
+    let movies = [];
+
+    array.forEach((element) => {
+
+        if (element.includes("addMovie")) {
+
+            let name = element.split("addMovie ")[1];
+            movies.push({ name });
+
+        } else if (element.includes("directedBy")) {
+
+            let [name, director] = element.split(" directedBy ");
+
+            let searching = movies.find((movie) => movie.name === name);
+
+            if (searching) {
+
+                searching["director"] = director;
+
+            }
+
+        } else if (element.includes("onDate")) {
+
+            let [name, date] = element.split(" onDate ");
+
+            let searching = movies.find((movie) => movie.name === name);
+
+            if (searching) {
+
+                searching["date"] = date;
+
+            }
+        }
+    });
+
+    movies.forEach((movie) => {
+        if (movie.name && movie.director && movie.director) {
+            console.log(JSON.stringify(movie));
+        }
+    });
+}
+
+//moviesInfo(['addMovie Fast and Furious', 'addMovie Godfather', 'Inception directedBy Christopher Nolan', 'Godfather directedBy Francis Ford Coppola', 'Godfather onDate 29.07.2018', 'Fast and Furious onDate 30.07.2018', 'Batman onDate 01.08.2018', 'Fast and Furious directedBy Rob Cohen']);
+
+
+/*
+5. Inventory
+
+Create a function, which creates a register for heroes, with their names, level, and items (if they have such).
+
+The input comes as an array of strings. Each element holds data for a hero, in the following format:
+
+"{heroName} / {heroLevel} / {item1}, {item2}, {item3}..."
+
+You must store the data about every hero. The name is a string, a level is a number and the items are all strings.
+
+The output is all of the data for all the heroes you’ve stored sorted ascending by level. The data must be in the following format for each hero:
+
+Hero: {heroName}
+
+level => {heroLevel}
+
+Items => {item1}, {item2}, {item3}
+*/
+
+function heroInventory(array) {
+    let heroes = [];
+    for (let element of array) {
+        let [name, level, items] = element.split(" / ");
+        let hero = {
+            name,
+            level: Number(level),
+            items,
+        }
+        heroes.push({ hero });
+    }
+
+    heroes.forEach((hero) => {
+        console.log(hero.name);
+    });
+}
+
+heroInventory(['Isacc / 25 / Apple, GravityGun', 'Derek / 12 / BarrelVest, DestructionSword', 'Hes / 1 / Desolator, Sentinel, Antara']);
+
