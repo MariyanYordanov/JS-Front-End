@@ -446,7 +446,7 @@ function moviesInfo(array) {
 
 
 /*
-5. Inventory
+15. Inventory
 
 Create a function, which creates a register for heroes, with their names, level, and items (if they have such).
 
@@ -466,21 +466,120 @@ Items => {item1}, {item2}, {item3}
 */
 
 function heroInventory(array) {
+
     let heroes = [];
-    for (let element of array) {
-        let [name, level, items] = element.split(" / ");
+
+    for (const element of array) {
+
+        let [heroName, heroLevel, heroItems] = element.split(" / ");
+
         let hero = {
-            name,
-            level: Number(level),
-            items,
-        }
-        heroes.push({ hero });
+            heroName,
+            heroLevel: Number(heroLevel),
+            heroItems,
+        };
+
+        heroes.push(hero);
     }
 
-    heroes.forEach((hero) => {
-        console.log(hero.name);
-    });
+    heroes.sort((a, b) => a.heroLevel - b.heroLevel);
+
+    for (const hero of heroes) {
+        console.log(`Hero: ${hero.heroName}`);
+        console.log(`level => ${hero.heroLevel}`);
+        console.log(`Items => ${hero.heroItems}`);
+    }
 }
 
-heroInventory(['Isacc / 25 / Apple, GravityGun', 'Derek / 12 / BarrelVest, DestructionSword', 'Hes / 1 / Desolator, Sentinel, Antara']);
+//heroInventory(['Isacc / 25 / Apple, GravityGun', 'Derek / 12 / BarrelVest, DestructionSword', 'Hes / 1 / Desolator, Sentinel, Antara']);
 
+
+/*
+16. Words Tracker
+
+Write a function that receives an array of words and finds occurrences of given words in that sentence.
+
+The input will come as an array of strings. The first string will contain the words you will be looking for separated by a space. All strings after that will be the words in which you will check for a match.
+
+Print for each word how many times it occurs. The words should be sorted by count in descending.
+*/
+
+function wordTracker(array) {
+
+    let words = {};
+    let wordToFind = array[0].split(" ");
+
+    for (const iterator of wordToFind) {
+        words[iterator] = 0;
+    }
+
+    for (let i = 1; i < array.length; i++) {
+
+        if (words.hasOwnProperty(array[i])) {
+            words[array[i]]++;
+        }
+    }
+
+    for (const word in words) {
+        console.log(`${word}: ${words[word]}`);
+    }
+}
+
+//wordTracker(['this sentence', 'In', 'this', 'sentence', 'you', 'have', 'to', 'count', 'the', 'occurrences', 'of', 'the', 'words', 'this', 'and', 'sentence', 'because', 'this', 'is', 'your', 'task']);
+
+
+/*
+17. Odd Occurrences
+
+Write a function that extracts the elements of a sentence, if it appears an odd number of times (case-insensitive).
+
+The input comes as a single string. The words will be separated by a single space.
+*/
+
+function oddOccurrences(text) {
+
+    let words = {};
+    let textArr = [];
+    textArr = text.toLowerCase().split(" ");
+
+    for (let i = 0; i < textArr.length; i++) {
+
+        const element = textArr[i];
+
+        if (!words.hasOwnProperty(element)) {
+            words[element] = 1;
+        } else {
+            words[element] += 1;
+        }
+    }
+
+    let input = "";
+
+    for (const word in words) {
+
+        if (words[word] % 2 !== 0) {
+            input += word + " ";
+        }
+    }
+
+    console.log(input);
+}
+
+//oddOccurrences('Java C# Php PHP Java PhP 3 C# 3 1 5 C#');
+
+
+/*
+18. Piccolo
+
+Write a function that:
+
+· Records a car number for every car that enters the parking lot
+
+· Removes a car number when the car goes out
+
+· Input will be an array of strings in format [direction, carNumber]
+
+Print the output with all car numbers which are in the parking lot sorted in ascending by number.
+
+If the parking lot is empty, print: "Parking Lot is Empty".
+*/
