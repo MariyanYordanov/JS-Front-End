@@ -17,16 +17,9 @@ Return a string with all matched text, separated by "; " (semicolon, space).
 function extract(id) {
 
     const text = document.getElementById(id).textContent;
-    const group = "(.+?)";
-    const pattern = new RegExp(`\(${group}\)`, 'g');
-    let match = pattern.exec(text);
-    let matches = [];
 
-    while (match !== null) {
-        let innerMatch = match.exec(group);
-        matches.push(innerMatch);
-        match = pattern.exec(text);
-    }
+    const pattern = /\((.+?)\)/g;
+    const matches = text.match(pattern);
 
-    console.log(matches.join("; "));
+    return matches.map(match => match.slice(1, -1)).join("; ");
 }
