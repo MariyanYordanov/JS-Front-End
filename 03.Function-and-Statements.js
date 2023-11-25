@@ -258,4 +258,4 @@ function factorialDivision(a, b) {
 
     console.log(factorial(a) / factorial(b));
 }
-factorialDivision(5, 2);
+//factorialDivision(5, 2);
