@@ -1,5 +1,3 @@
-
-
 /*
 2. Pascal or Camel Case
 
@@ -21,12 +19,16 @@ function solve() {
   const result = document.getElementById("result");
 
   switch (namingConventeion) {
+
     case "Pascal Case":
+
       const textToPascaiCase = Array.from(text.replace(/\b\w/g, match => match.toUpperCase()).split(' '));
-      
+
       result.textContent = textToPascaiCase.join('');
       break;
+
     case "Camel Case":
+
       const textToCamelCase = text.split(' ');
 
       for (let i = 1; i < textToCamelCase.length; i++) {
@@ -34,10 +36,13 @@ function solve() {
       }
 
       result.textContent = textToCamelCase.join('');
+
       break;
+
     default:
 
       result.textContent = "Error!";
+
       break;
   }
 }
