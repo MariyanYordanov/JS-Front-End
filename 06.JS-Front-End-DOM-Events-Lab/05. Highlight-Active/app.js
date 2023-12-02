@@ -14,5 +14,21 @@ There will be no input/output, your program should instead modify the DOM of the
 */
 
 function focused() {
-    console.log('TODO:...');
+
+    const fields = Array.from(document.getElementsByTagName("input"));
+
+    for (const field of fields) {
+        field.addEventListener('focus', onFocus);
+        field.addEventListener('blur', onBlur);
+    }
+
+    function onFocus(e) {
+        const divParent = e.currentTarget.parentNode;
+        divParent.classList.add('focused');
+    }
+
+    function onBlur(e) {
+        const divParent = e.currentTarget.parentNode;
+        divParent.classList.remove('focused');
+    }
 }
