@@ -538,31 +538,31 @@ The input comes as a single string. The words will be separated by a single spac
 
 function oddOccurrences(text) {
 
-    let words = {};
-    let textArr = [];
-    textArr = text.toLowerCase().split(" ");
+    text = text.toLowerCase();
+    let textArr = text.split(" ");
 
-    for (let i = 0; i < textArr.length; i++) {
+    let map = new Map();
 
-        const element = textArr[i];
+    textArr.forEach((element) => {
 
-        if (!words.hasOwnProperty(element)) {
-            words[element] = 1;
+        if (map.has(element)) {
+            let oldValue = map.get(element);
+            let newValue = oldValue + 1;
+            map.set(element, newValue);
         } else {
-            words[element] += 1;
+            map.set(element, 1);
         }
-    }
+    });
 
-    let input = "";
+    let result = [];
 
-    for (const word in words) {
+    map.forEach((value, key) => {
 
-        if (words[word] % 2 !== 0) {
-            input += word + " ";
+        if (value % 2 !== 0) {
+            result.push(key);
         }
-    }
-
-    console.log(input);
+    });
+    console.log(result.join(" "));
 }
 
 //oddOccurrences('Java C# Php PHP Java PhP 3 C# 3 1 5 C#');
@@ -572,14 +572,69 @@ function oddOccurrences(text) {
 18. Piccolo
 
 Write a function that:
-
 · Records a car number for every car that enters the parking lot
-
 · Removes a car number when the car goes out
-
 · Input will be an array of strings in format [direction, carNumber]
-
 Print the output with all car numbers which are in the parking lot sorted in ascending by number.
-
 If the parking lot is empty, print: "Parking Lot is Empty".
 */
+
+function parking(array) {
+
+    let parking = [];
+
+    for (let i = 0; i < array.length; i++) {
+
+        const [action, carNumber] = array[i].split(", ");
+
+        if (action === "IN" && !parking.includes(carNumber)) {
+            parking.push(carNumber);
+        } else if (action === "OUT" && parking.includes(carNumber)) {
+            let start = parking.indexOf(carNumber);
+            parking.splice(start, 1);
+        }
+    }
+
+    if (parking.length > 0) {
+        let sortedNumbers = parking.sort((a, b) => a.localeCompare(b));
+        sortedNumbers.forEach(n => console.log(n));
+
+    } else {
+        console.log("Parking Lot is Empty");
+    }
+}
+
+//parking(['IN, CA2844AA', 'IN, CA1234TA', 'OUT, CA2844AA', 'IN, CA9999TT', 'IN, CA2866HI', 'OUT, CA1234TA', 'IN, CA2844AA', 'OUT, CA2866HI', 'IN, CA9876HH', 'IN, CA2822UU']);
+//parking(['IN, CA2844AA', 'IN, CA1234TA', 'OUT, CA2844AA', 'OUT, CA1234TA']);
+
+/*
+9. Make a Dictionary
+
+You will receive an array with strings in the form of JSON's.
+You have to parse these strings and combine them into one object. Every string from the array will hold terms and a description. If you receive the same term twice, replace it with the new definition.
+Print every term and definition in that dictionary on new line in format:
+`Term: ${term} => Definition: ${definition}`
+Don't forget to sort the dictionary alphabetically by the terms as in real dictionaries.
+ */
+
+function dictionary(array) {
+    let dictionary = {};
+
+    // Parse JSON strings and populate the dictionary
+    array.forEach(jsonString => {
+        let parsedObject = JSON.parse(jsonString);
+        let term = Object.keys(parsedObject)[0]; // Вземаме ключа (term) от първото свойство на обекта
+        dictionary[term] = parsedObject[term];
+    });
+
+    // Get sorted keys
+    let sortedTerms = Object.keys(dictionary).sort();
+
+    // Print terms and definitions
+    sortedTerms.forEach(term => {
+        let definition = dictionary[term];
+        console.log(`Term: ${term} => Definition: ${definition}`);
+    });
+}
+
+dictionary(['{"Cup":"A small bowl-shaped container for drinking from,typically having a handle"}', '{"Cake":"An item of soft sweet food made from a mixture of flour, fat, eggs, sugar, and other ingredients, baked and sometimes iced or decorated."}', '{"Watermelon":"The large fruit of a plant of the gourd family, with smooth green skin, red pulp, and watery juice."} ', '{"Music":"Vocal or instrumental sounds(or both) combined in such a way as to produce beauty of form, harmony, and expression of emotion."} ', '{"Art":"The expression or application of human creative skill and imagination, typically in a visual form such as painting or sculpture, producing works to be appreciated primarily for their beauty or emotional power."}']);
