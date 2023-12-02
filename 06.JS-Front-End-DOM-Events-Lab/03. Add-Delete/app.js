@@ -38,9 +38,8 @@ function addItem() {
         input.addEventListener('click', onClickInput);
     }
 
-    function onClickInput() {
-        const target = document.getElementById("error");
-        target.parentNode.removeChild(errorDiv);
+    function onClickInput(e) {
+        e.target.parentNode.removeChild(errorDiv);
     }
 
     function deleteItem(e) {
