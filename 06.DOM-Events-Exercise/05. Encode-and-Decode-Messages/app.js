@@ -31,13 +31,22 @@ function encodeAndDecodeMessages() {
         let result = '';
 
         for (let i = 0; i < target.length; i++) {
-            let charCode = target[i].charCodeAt(i)+1;
-            result += String.fromCharCode(charCode);
+            result += String.fromCodePoint(target[i].charCodeAt(0)+1);
         }
-        console.log(result);
+
+        output.value = result;
+        input.value = '';
     }
 
-    function decode(e) {
-        
+    function decode() {
+        const target = output.value;
+        let result = '';
+
+        for (let i = 0; i < target.length; i++) {
+            result += String.fromCodePoint(target[i].charCodeAt(0)-1);
+        }
+
+        input.value = result;
+        output.value = '';
     }
 }
