@@ -36,7 +36,7 @@ function encodeAndDecodeMessages() {
 
         output.value = result;
         input.value = '';
-        document.querySelector('#main div:nth-child(1) button').disabled = false;
+        btnDecode.disabled = false;
     }
 
     function decode() {
@@ -48,6 +48,6 @@ function encodeAndDecodeMessages() {
         }
 
         input.value = result;
-        document.querySelector('#main div:nth-child(2) button').disabled = true;
+        btnDecode.disabled = true;
     }
 }
