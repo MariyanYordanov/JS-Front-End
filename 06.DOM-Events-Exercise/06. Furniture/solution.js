@@ -13,12 +13,61 @@ On the next line, print the total price in the format:
 "Total price: {totalPrice}" (formatted to the second decimal point). 
 Finally, print the average decoration factor in the format: "Average decoration factor: {decFactor}"
 
-Input Example
-
-[{"name": "Sofa", "img": "https://res.cloudinary.com/maisonsdumonde/image/upload/q_auto,f_auto/w_200/img/grey-3-seater-sofa-bed-200-13-0-175521_9.jpg", "price": 150, "decFactor": 1.2}]
+Input
+[{"img":"https://www.ikea.com/PIAimages/0447583_PE597395_S5.JPG","name": "Sofa","price": "259","decFactor":"0.4"},{"img":"https://www.stylespafurniture.com/wp-content/uploads/2020/03/Cove_3_Door_Wardrobe_1.jpg","name": "Wardrobe","price": "120","decFactor":"1.2"}]
 */
 
 function solve() {
 
-  //TODO...
+    let table = document.querySelector('.table');
+
+    const btnGenerate = document.querySelector('#exercise button');
+    btnGenerate.addEventListener('click', generate);
+
+    function generate() {
+
+        const input = document.querySelector('#exercise textarea').value.trim();
+        const parsedInput = JSON.parse(input);
+
+        for (let item of parsedInput){
+
+            let row = table.insertRow(table.rows.length);
+
+            let cell1 = row.insertCell(0);
+            cell1.innerHTML = '<img src=' + item.img + ' />';
+
+            let cell2 = row.insertCell(1);
+            cell2.innerHTML = '<p>' + item.name + '</p>';
+
+            let cell3 = row.insertCell(2);
+            cell3.innerHTML = '<p>' + item.price + '</p>';
+
+            let cell4 = row.insertCell(3);
+            cell4.innerHTML = '<p>' + item.decFactor + '</p>';
+
+            let cell5 = row.insertCell(4);
+            cell5.innerHTML = '<input type ="checkbox">';
+        }
+    }
+
+    const btnBuy = document.querySelector('#exercise > button:nth-child(6)');
+    btnBuy.addEventListener('click', buy);
+
+    function buy() {
+
+        const rows = document.querySelectorAll('tbody tr');
+
+        let checkedCheckboxes = [];
+
+        for (const sell of rows) {
+
+            let checkbox = document.querySelector('tbody tr input');
+            
+            if(checkbox.checked){
+                checkedCheckboxes.push(sell);
+            }
+        }
+
+        console.log(checkedCheckboxes);
+    }
 }
