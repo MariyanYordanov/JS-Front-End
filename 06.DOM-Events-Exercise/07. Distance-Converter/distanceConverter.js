@@ -18,25 +18,28 @@ Option text is irrelevant
 
 function attachEventsListeners() {
     
-    const convertToMeter = [1000, 1, 0.01, 0.001, 1609.34, 0.9144, 0.3048, 0.0254];
-    
-    const btnConvert = document.getElementById('convert');
+    const [inputField, convertButton, outputField] = document.getElementsByTagName('input');
+    const [inputOption, outputOption] = document.getElementsByTagName('select');
 
-    btnConvert.addEventListener('click', () => {
+    const convertToMeter = {
+        km:1000,
+        m: 1, 
+        cm: 0.01, 
+        mm: 0.001, 
+        mi: 1609.34, 
+        yrd: 0.9144, 
+        ft: 0.3048, 
+        in: 0.0254
+    };
 
-        const inputDistance = Number(document.getElementById('inputDistance').value);
-        const outputDistance = document.getElementById('outputDistance');
+    convertButton.addEventListener('click', () => {
 
-        const selectInputUnits = document.getElementById('inputUnits');
-        const selectedInputIndex = selectInputUnits.selectedIndex;
-
-        let convertToMeterInput = inputDistance * convertToMeter[selectedInputIndex];
+        const inputDistance = inputField.value;
+        const inputUnits = inputOption.value;
+        const outputUnits = outputOption.value;
         
-        const selectedOutputUnits = document.getElementById('outputUnits');
-        const selectedOutputIndex = selectedOutputUnits.selectedIndex;
-        
-        let result = convertToMeterInput / convertToMeter[selectedOutputIndex];
-        outputDistance.value = result.toFixed(6);
+        let result = inputDistance * convertToMeter[inputUnits] / convertToMeter[outputUnits];
+        outputField.value = result.toFixed(8);
     })
 
 }
