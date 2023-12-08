@@ -57,17 +57,39 @@ function solve() {
 
         const rows = document.querySelectorAll('tbody tr');
 
-        let checkedCheckboxes = [];
+        let checkedRows = [];
 
-        for (const sell of rows) {
+        for (const row of rows) {
 
-            let checkbox = document.querySelector('tbody tr input');
+            let checkbox = row.querySelector('td input');
             
             if(checkbox.checked){
-                checkedCheckboxes.push(sell);
+                checkedRows.push(row);
             }
         }
 
-        console.log(checkedCheckboxes);
+        const output = document.querySelector('#exercise > textarea:nth-child(5)');
+
+        let firstLine = ['Bought furniture: '];
+        let secondLine = 0;
+        let thirdLine = ['Average decoration factor: '];
+        let count = 0;
+        let average= 0;
+
+        for (const row of checkedRows) {
+
+            firstLine.push(row.querySelector('td:nth-child(2) p:nth-child(1)').textContent);
+
+            secondLine += Number(row.querySelector('td:nth-child(3) p:nth-child(1)').textContent);
+
+            average += Number(row.querySelector('td:nth-child(4) p:nth-child(1)').textContent);
+            count++;
+        }
+
+        
+        let decorationFactor = (average / count).toFixed(2);
+        thirdLine += decorationFactor;
+
+        output.textContent = `${firstLine.join(", ")}\n${secondLine.toFixed(2)}\n${thirdLine}`;
     }
 }
