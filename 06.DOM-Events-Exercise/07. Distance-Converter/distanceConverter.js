@@ -17,8 +17,6 @@ Option text is irrelevant
 */
 
 function attachEventsListeners() {
-
-    const fromUnit = document.querySelectorAll('#inputUnits option');
     
     const convertToMeter = [1000, 1, 0.01, 0.001, 1609.34, 0.9144, 0.3048, 0.0254];
     
@@ -38,7 +36,6 @@ function attachEventsListeners() {
         const selectedOutputIndex = selectedOutputUnits.selectedIndex;
         
         let result = convertToMeterInput / convertToMeter[selectedOutputIndex];
-        outputDistance.disabled = false;
         outputDistance.value = result.toFixed(6);
     })
 
