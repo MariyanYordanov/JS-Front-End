@@ -20,7 +20,57 @@ The right answers are:
 */
 
 function solve() {
-  //TODO...
+
+    const correctAnswers = [
+        'onclick',
+        'JSON.stringify()',
+        'A programming API for HTML and XML documents'
+    ];
+
+    const answers = document.querySelectorAll('p.answer-text');
+    const sections = document.getElementsByTagName('section');
+    let result = document.querySelector('li.results-inner h1');
+    let points = 0;
+    let sectionIndex = 0;
+
+    for (let i = 0; i < answers.length; i++) {
+        
+        answers[i].addEventListener('click', showNextQuestion);
+    }
+
+    function showNextQuestion(e) {
+
+        if (correctAnswers.includes(e.currentTarget.textContent)) {
+
+            points++;
+        }
+
+        sections[sectionIndex].style.display = 'none';
+        sectionIndex++;
+        
+
+        if (sectionIndex < sections.length) {
+
+            sections[sectionIndex].style.display = 'block';
+
+        } else {
+
+            if(points === 3){
+
+                result.textContent = "You are recognized as top JavaScript fan!";
+
+            } else {
+
+                result.textContent = `You have ${points} right answers`;
+            }
+
+            result.style.display = 'block';
+        }
+
+    }
 }
+
+
+
 
 
