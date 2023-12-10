@@ -1,15 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Lato');
 @import url('https://fonts.googleapis.com/css?family=PT+Sans');
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
 html{
     font-family: "PT sans", sans-serif;
     font-size: 24px;
     color: #234465;
 }
+
 body{
     display: flex;
     flex-direction: column;
@@ -23,11 +26,13 @@ body{
     float: left;
     padding: 1rem 0 1rem 1rem;
 }
+
 main:after{
     display: block;
     content:'';
     clear: both;
 }
+
 button{
     padding: 0.3rem 0.5rem;
     font-size: 0.7em;
@@ -81,3 +86,4 @@ input::-webkit-inner-spin-button {
     font-weight: bold;
     font-size: 24px;
 }
+
