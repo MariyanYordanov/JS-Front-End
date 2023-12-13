@@ -10,6 +10,10 @@ function solve() {
         const score = document.getElementById('score');
         const previewList = document.getElementById('preview-list');
 
+        if(!student.value || !university.value || !score.value){
+            return;
+        }
+
         const li = document.createElement('li');
         li.className = 'application';
         previewList.appendChild(li);
