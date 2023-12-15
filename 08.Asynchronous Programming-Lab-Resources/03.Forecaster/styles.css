@@ -3,7 +3,7 @@
     margin: 0 auto;
 }
 
-forecasts {
+div.forecasts {
     display: inline-block;
     width: 30%;
     border: 1px solid aquamarine;
