@@ -1,22 +1,4 @@
-/*
-Clicking the [Load Meals] button should send a GET request to the server to fetch all records from your local database.
-You must add each task to the <div> with id="list". [Edit Meal] button should be deactivated.
 
-Add а Meal
-Clicking the [Add Meal] button should send a POST request to the server, creating a new meal record  with the food, time, and calories from the input values. 
-After a successful creation, you should send another GET request to fetch all meals, including the newly added one into the Today Meals column. 
-You should also clear all the input fields after the creation!
-
-Edit a Meal
-Clicking the [Change] button on a record should remove the record from the DOM structure and the information about the task should be populated into the input fields on the left. 
-The [Edit Meal] button in the form should be activated and the [Add Meal] one should be deactivated.
-After clicking the [Edit Meal] button in the form, you should send a PUT request to the server to modify the food, time and the calories of the changed item. 
-After the successful request, you should fetch the items again and see that the changes have been made. 
-After that, the [Edit Meal] button should be deactivated and the [Add Meal] one should be activated.
-
-Delete
-Clicking the [Delete] button should send a DELETE request to the server and remove the item from your local database. After you've removed it successfully, fetch the items again.
- */
 const baseUrl = 'http://localhost:3030/jsonstore/tasks/';
 const divList = document.getElementById('list');
 
